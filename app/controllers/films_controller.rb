@@ -11,11 +11,11 @@ class FilmsController < ApplicationController
     end
 
     def new
-        @play = Film.new
+        @play = current_user.films.build
     end
 
     def create
-        @play = Film.new(film_params)
+        @play = current_user.films.build(film_params)
         if @play.save
             redirect_to root_path
         else   
