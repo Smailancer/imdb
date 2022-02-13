@@ -3,7 +3,12 @@ class FilmsController < ApplicationController
     before_action :find_play, only: [:show,:edit, :update, :destroy ]
 
     def index
-        @plays = Film.all.order("created_at DESC")
+        if params[:category].blank?
+            @plays = Film.all.order("created_at DESC")
+        else  
+            @category_id = Category.find_by(name: params[:category]).id
+            @plays = Film.where(:category_id => @category_id).order("created_at DESC")
+        end
     end
 
     def show
