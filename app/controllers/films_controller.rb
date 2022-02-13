@@ -12,10 +12,12 @@ class FilmsController < ApplicationController
 
     def new
         @play = current_user.films.build
+        @categories = Category.all.map{ |c| [c.name, c.id] }
     end
 
     def create
         @play = current_user.films.build(film_params)
+        @play.category_id = params[:category_id]
         if @play.save
             redirect_to root_path
         else   
@@ -24,10 +26,13 @@ class FilmsController < ApplicationController
     end
 
     def edit
-        
+        @categories = Category.all.map{ |c| [c.name, c.id] }
+
     end
 
     def update
+        @play.category_id = params[:category_id]
+
         if @play.update(film_params)
             redirect_to film_path(@play)
         else
@@ -44,7 +49,7 @@ class FilmsController < ApplicationController
     private 
 
     def film_params
-        params.require(:film).permit(:title, :description,:director)
+        params.require(:film).permit(:title, :description,:director, :category_id)
     end
 
     def find_play

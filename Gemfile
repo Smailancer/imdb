@@ -25,6 +25,7 @@ gem 'haml', '~> 5.2', '>= 5.2.2'
 gem 'simple_form', '~> 5.1'
 gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 gem 'devise', '~> 4.8', '>= 4.8.1'
+gem 'jquery-rails'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

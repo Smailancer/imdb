@@ -26,24 +26,33 @@
         </form>
         </li>
       <% if user_signed_in? %>
+					<li><%= link_to "Add Play", new_film_path %></li>
+			
         <li class="nav-item">
          <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
         </li>
       <% else %>
         <li class="nav-item">
-         <%= link_to "Sign up", new_user_registration_path, method: :delete %>
+         <%= link_to "Log In", new_user_session_path %>
         </li>
         <li class="nav-item">
-         <%= link_to "Log In", new_user_session_path, method: :delete %>
+         <%= link_to "Sign up", new_user_registration_path %>
         </li>
         <%end%>
      
         </li>
+     
       </ul>
       <ul class="nav navbar-nav">
-      <% if user_signed_in?%>
-        <li> <%= link_to "Add Play", new_film_path %> </li>
-      <%end%>
+
+
+						<% Category.all.each do |category| %>
+							<li class="<%= 'active' if params[:category] == category.name %>">
+								<%= link_to category.name, films_path(category: category.name), class: "link" %>
+							</li>
+						<% end %>	
+			</ul>
+
      
     </div>
   
@@ -52,6 +61,8 @@
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
     <div class = "container">
+
+
     <%= yield %>
     </div>
   </body>
